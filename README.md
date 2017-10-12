@@ -1,5 +1,4 @@
 # FIX YOUR MP4 FILE FOR FREE WITH PERL OPENSOURCE TOOL WET ULTIMATE SOLUTION
-============================================================================
 
 ## What it is?
 
@@ -21,20 +20,23 @@ To restore the files you need:
 1. If you have a deleted video / not finalized / there was an emergency shutdown, first get an image from it using the winhex utility or similar. You can also try to recover files, but you can lost few seconds. Linux users can point the card directly, like /dev/sdX, but having a backup when restoring data is always a good idea.
 2. Take the old video file or shoot a new video that will be recorded under the same conditions as the one being restored. Be sure to record it exactly under the same conditions, including even shaking on the screen (same bitrate), if it was - so we will find exactly what we are looking for. The length of the video is 20 seconds, but if you feed more - it's ok.
 3. You need to run:
+
 ```                   perl fixer.pl <good_file.mp4> <bad_file.mp4> <output_prefix>```
 
 ## How it works?
 
 To begin, intermediate files are created:
-`*-headers.aac` - the file that you will need later to restore the sound
-`*-headers.h264` - the video file that will be used to create headers
-`*-nals.txt` - temporary file, with reference video packets. Under Windows 7, this file is created long for an unknown reason to me. This file is needed to "learn" the features of the encoding of the sample file
-`*-nals-stat.txt` is what we "learned". If something goes wrong - send this file.
-`*-stat.mp4` - temporary file, actually a copy of the sample file, only without sound, cropped up to 20 seconds.
+
+* `*-headers.aac` - the file that you will need later to restore the sound
+* `*-headers.h264` - the video file that will be used to create headers
+* `*-nals.txt` - temporary file, with reference video packets. Under Windows 7, this file is created long for an unknown reason to me. This file is needed to "learn" the features of the encoding of the sample file
+* `*-nals-stat.txt` is what we "learned". If something goes wrong - send this file.
+* `*-stat.mp4` - temporary file, actually a copy of the sample file, only without sound, cropped up to 20 seconds.
 
 At the very end of the work will be created:
-`*-out-video.h264` - restored video
-`*-out-audio.raw` - the restored audio. To be precise - just what was between the video.
+
+* `*-out-video.h264` - restored video
+* `*-out-audio.raw` - the restored audio. To be precise - just what was between the video.
 
 All files will be created in the current directory, from where you run the script.
 
@@ -46,19 +48,24 @@ Different video cameras can write sound differently. At a minimum, it can be in 
 
 1. If the sound was in mp3 format, then you can simply rename *-out-audio.raw to file.mp3 and open it with any player.
 2. If the sound was in PCM format (and its subspecies, such as ULAW), as some Sony video cameras do, then you can easily save it if you convert it to WAV by typing something like:
-...```ffmpeg -f s16le -ar 48000 -ac 2 -i somefile-out-audio.raw -c copy output.wav```
-...Of course, you will need to choose the parameters for your device.
+
+```ffmpeg -f s16le -ar 48000 -ac 2 -i somefile-out-audio.raw -c copy output.wav```
+
+Of course, you will need to choose the parameters for your device.
 3. If the audio was in AAC format, as the most popular version, then we compile the attached utility:
-...```                    gcc aac.c -L. -lfaad -lm -o aacfixer```
-...(assuming that you compiled the faad2 library and put the files libfaad.a and neaacdec.h in the current directory)
+
+`                    gcc aac.c -L. -lfaad -lm -o aacfixer`
+
+(assuming that you compiled the faad2 library and put the files libfaad.a and neaacdec.h in the current directory)
 
 Now run:
 
-...```                  ./aacfixer somefile-headers.aac somefile-out-audio.raw```
+```                  ./aacfixer somefile-headers.aac somefile-out-audio.raw```
 
 And after a while the files will appear:
-`<prefix>-pure.wav` - is what was decoded
-`<prefix>-pure-adts.aac` - similarly, only without recoding
+
+* `<prefix>-pure.wav` - is what was decoded
+* `<prefix>-pure-adts.aac` - similarly, only without recoding
 
 Bruteforce is used for recovering sound, so the operation can be slow.
 
@@ -78,8 +85,8 @@ The code was written to work on as many platforms as possible, do not depend on 
 
 If for some reason you want to give me money, you can do it through:
 
-Bitcoin: 1bU17VMyvxYfCN257AiHrPPca1bszuLna
-Ether: 0x39b64f347b7702ddb1f8B06A25575598d624b783
+* Bitcoin: 1bU17VMyvxYfCN257AiHrPPca1bszuLna
+* Ether: 0x39b64f347b7702ddb1f8B06A25575598d624b783
 
 Remember that I am unemployed and I really need money. If you make a money transfer, then I can use my data recovery superpowers and help you with a vengeance. However, the strength depends on the amount of money.
 
@@ -159,20 +166,23 @@ And also to sufferers with SJCAM from our conference, which motivated me to do t
 1. Если у вас видео было записано на sdcard и удалено/не финализировано/было аварийное отлючение, то для начала снимите с нее образ при помощи утилиты winhex или ей подобной. Вы конечно можете попытаться восстановить файлы, но вы можете потерять несколько секунд. Пользователи Linux могут указать карту напрямую, как /dev/sdX, однако иметь резервную копию при восстановлении данных - это всегда хорошая идея.
 2. Возьмите старый или снимите новый видеоролик, который будет записан при тех же условиях, что и восстанавливаемый. Обязательно записывать его ровно при тех же условиях, включая даже тряску на экране, если она была - так мы найдем ровно то, что ищем. Длительность ролика 20 секунд, но если скормить больше - ничего страшного.
 3. Нужно запустить
-...```              perl fixer.pl <good_file.mp4> <bad_file.mp4> <output_prefix>```
+
+```              perl fixer.pl <good_file.mp4> <bad_file.mp4> <output_prefix>```
 
 ## Как это работает?
 
 Для начала создаются промежуточные файлы:
-`*-headers.aac` - файл, который понадобится для восстановления звука
-`*-headers.h264` - файл видео, который будет использован для создания заголовков
-`*-nals.txt` - временный файл, внутри которого будут разобраны пакеты. Под Windows 7 этот файл создается долго по неизвестной мне причине. Этот файл нужен, чтобы "научиться" особенностям кодирования файла-образца
-`*-nals-stat.txt` - это то, чему мы "научились". Если что-то пойдет не так - пришлите этот файл.
-`*-stat.mp4` - временный файл, фактически копия файла-образца, только без звука, обрезанная до 20 секунд.
+
+* `*-headers.aac` - файл, который понадобится для восстановления звука
+* `*-headers.h264` - файл видео, который будет использован для создания заголовков
+* `*-nals.txt` - временный файл, внутри которого будут разобраны пакеты. Под Windows 7 этот файл создается долго по неизвестной мне причине. Этот файл нужен, чтобы "научиться" особенностям кодирования файла-образца
+* `*-nals-stat.txt` - это то, чему мы "научились". Если что-то пойдет не так - пришлите этот файл.
+* `*-stat.mp4` - временный файл, фактически копия файла-образца, только без звука, обрезанная до 20 секунд.
 
 В самом конце работы будут созданы:
-`*-out-video.h264` - восстановленное видео
-`*-out-audio.raw` - восстановленное аудио. Если быть точным - только то, что было между видео.
+
+* `*-out-video.h264` - восстановленное видео
+* `*-out-audio.raw` - восстановленное аудио. Если быть точным - только то, что было между видео.
 
 Все файлы будут создаты в текущей директории, откуда вы запускаете скрипт.
 
@@ -187,16 +197,19 @@ And also to sufferers with SJCAM from our conference, which motivated me to do t
 ffmpeg -f s16le -ar 48000 -ac 2 -i somefile-out-audio.raw -c copy output.wav
 Конечно, вам нужно будет подобрать параметры для своего устройства.
 3. Если звук был в формате AAC, как самый популярный вариант, то компилируем прилагаемую утилиту:
-...```                 gcc aac.c -L. -lfaad -lm -o aacfixer```
-...(предполагается, что вы скомпилировали библиотеку faad2 и положили файлы libfaad.a и neaacdec.h в текущую директорию)
+
+```                 gcc aac.c -L. -lfaad -lm -o aacfixer```
+
+(предполагается, что вы скомпилировали библиотеку faad2 и положили файлы libfaad.a и neaacdec.h в текущую директорию)
 
 Теперь запускаем:
 
 ```                  ./aacfixer somefile-headers.aac somefile-out-audio.raw```
 
 И после некоторого времени появятся файлы:
-`<prefix>-pure.wav` - то, что удалось декодировать.
-`<prefix>-pure-adts.aac` - аналогично, только без перекодирования
+
+* `<prefix>-pure.wav` - то, что удалось декодировать.
+* `<prefix>-pure-adts.aac` - аналогично, только без перекодирования
 
 При восстановлении звука используется брутфорс, потому быстро не будет.
 
@@ -216,8 +229,8 @@ ffmpeg -f s16le -ar 48000 -ac 2 -i somefile-out-audio.raw -c copy output.wav
 
 Если по какой-то причине вы хотите мне дать денег, то можете сделать это через:
 
-Bitcoin: 1bU17VMyvxYfCN257AiHrPPca1bszuLna
-Ether: 0x39b64f347b7702ddb1f8B06A25575598d624b783
+* Bitcoin: 1bU17VMyvxYfCN257AiHrPPca1bszuLna
+* Ether: 0x39b64f347b7702ddb1f8B06A25575598d624b783
 
 Помните, что я безработный и деньги мне очень нужны. Если вы сделаете денежный перевод, то я смогу воспользоваться своей магией восстановления данных и помочь вам с удвоенной силой. Впрочем, сила зависит от денежной суммы.
 
