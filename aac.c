@@ -73,7 +73,7 @@ sprintf(filename,"%s-pure-adts.aac",argv[2]);
 FILE *out_aac=fopen(filename,"wb");
 free(filename);
 
-int blocksize=10000000;
+int blocksize=1000000000;
 
 uint8_t *buf=malloc(blocksize);
 uint8_t *tmp=malloc(100000); // 8192+7
