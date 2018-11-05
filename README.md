@@ -12,7 +12,7 @@ To restore the files you need:
 1. The broken files or images of the card / flash drive / disk where the video was recorded
 2. A new (SEPARATE) disk with sufficient free space.
 3. A machine running `Linux` or `Windows`, `perl`, `ffmpeg` / `ffprobe` / `ffplay`
-4. To restore aac-sound, you need `faad2` + `gcc`
+4. To restore aac-sound, you need `faad2` (libfaad-dev package) + `gcc` (to compile `aacfixer` utility)
 5. Sample of good recorded file. The file must be written with the same settings on the same device as the corrupted file.
 
 ## How to use it?
