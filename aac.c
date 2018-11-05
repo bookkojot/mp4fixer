@@ -115,7 +115,7 @@ channels*2,
 
 fwrite(&header,1,sizeof(header),out_pcm);
 
-static uid=0;
+static int uid=0;
 
 int size=0;
 
