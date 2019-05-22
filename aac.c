@@ -183,8 +183,11 @@ if(now-last_time){
 printf("Consumed 0, position:%d\n",(int)ftell(pure)-size);
 last_time=now;
 }
+
+// reinit codec
 NeAACDecClose(h);
-NeAACDecHandle h=NeAACDecOpen();
+// fixed bug, thanks to libTorrentUser!
+h=NeAACDecOpen();
 NeAACDecInit(h,adts,7,&samplerate,&channels);
 
 buf++;
